@@ -3,7 +3,7 @@ import { Nav } from "@/components/Nav";
 import { AppDataProvider } from "@/lib/store";
 import "./globals.css";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://prodenz.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://aroma.prodenz.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
