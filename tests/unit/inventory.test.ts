@@ -83,3 +83,21 @@ describe("amazon", () => {
     expect(buildReorderUrl(other, undefined, "t-22")).toBe("https://example.com/p");
   });
 });
+
+import { buildStockDigest } from "@/domain/notify";
+
+describe("buildStockDigest", () => {
+  const now = new Date("2026-10-03T08:00:00+09:00");
+  it("アラートをまとめ、今日送信済みは除外", () => {
+    const empty = { ...withStatus(lav(), "empty"), id: "e" };
+    const unknown = { ...withStatus(lav(), "unknown"), id: "u" };
+    const d = buildStockDigest([empty, unknown, lav()], [], now);
+    expect(d?.items).toEqual([{ id: "e", level: "empty" }, { id: "u", level: "unknown" }]);
+    expect(d?.title).toContain("補充");
+    const d2 = buildStockDigest([empty, unknown], [
+      { inventory_item_id: "e", level: "empty", sent_at: "2026-10-03T07:00:00+09:00" },
+      { inventory_item_id: "u", level: "unknown", sent_at: "2026-10-03T07:00:00+09:00" },
+    ], now);
+    expect(d2).toBeNull();
+  });
+});

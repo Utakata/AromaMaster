@@ -1,0 +1,51 @@
+/*
+ * デザイントークン。Claude Design の成果物はこのファイル（と src/components/ui/）を差し替えれば全画面に反映される。
+ */
+:root {
+  --font-sans: "Hiragino Sans", "Noto Sans JP", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --color-bg: #f7f5f0;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef2ee;
+  --color-text: #22302a;
+  --color-muted: #5d6b64;
+  --color-border: #d9dfda;
+  --color-primary: #3f6b5a;
+  --color-primary-contrast: #ffffff;
+  --color-accent: #b0784a;
+  --color-danger: #b3413a;
+  --color-warning: #a8741a;
+  --color-success: #3c7a4d;
+  --color-focus: #2f6fd1;
+
+  --evidence-a: #2e7d4f;
+  --evidence-b: #3a6ea5;
+  --evidence-c: #8a7a5c;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.05), 0 2px 8px rgb(0 0 0 / 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #151a17;
+    --color-surface: #1d2420;
+    --color-surface-2: #252e29;
+    --color-text: #e6ece8;
+    --color-muted: #a3b0a9;
+    --color-border: #34403a;
+    --color-primary: #7fb89e;
+    --color-primary-contrast: #10221a;
+    --color-accent: #d79e6e;
+    --color-danger: #e57b72;
+    --color-warning: #e0b05a;
+    --color-success: #7cc490;
+    --color-focus: #8ab4ff;
+    --evidence-a: #7cc490;
+    --evidence-b: #8ab4e8;
+    --evidence-c: #c8b791;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4);
+  }
+}
