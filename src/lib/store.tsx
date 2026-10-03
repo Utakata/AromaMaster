@@ -100,6 +100,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
 
   const guard = useCallback(
     async <T,>(fn: () => Promise<T>): Promise<T> => {
+      if (!repo) throw new Error("データの準備中です。少し待ってからもう一度お試しください。");
       try {
         const r = await fn();
         setError(null);
@@ -109,7 +110,7 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
         throw e;
       }
     },
-    [],
+    [repo],
   );
 
   const saveInventory = useCallback(
@@ -171,12 +172,13 @@ export function AppDataProvider({ children }: { children: ReactNode }) {
   );
 
   const saveSafety = useCallback(
-    async (s: SafetyProfile) =>
-      guard(async () => {
-        await repo!.saveSafety(s);
-        setSafety(s);
-      }),
-    [repo, guard],
+    async (s: SafetyProfile) => {
+      // 楽観的に反映し、保存に失敗したら元に戻す
+      const prev = safety;
+      setSafety(s);
+      await guard(() => repo!.saveSafety(s)).catch(() => setSafety(prev));
+    },
+    [repo, guard, safety],
   );
 
   const migrateLocalToCloud = useCallback(

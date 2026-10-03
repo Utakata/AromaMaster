@@ -45,7 +45,7 @@ function InventoryInner() {
             {label}
           </Chip>
         ))}
-        <Button variant="secondary" className="ml-auto" onClick={() => setAdding((v) => !v)}>
+        <Button variant="secondary" className="ml-auto" disabled={!ready} onClick={() => setAdding((v) => !v)}>
           {adding ? "閉じる" : "＋ 追加"}
         </Button>
       </div>

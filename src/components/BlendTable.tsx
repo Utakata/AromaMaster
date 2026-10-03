@@ -56,6 +56,11 @@ export function BlendTable({ blend, onAddToInventory }: { blend: Blend; onAddToI
                 <p className="text-sm text-muted">
                   {c.brand}「{c.productName}」
                   {c.inventoryItemId && !c.shortage && <span className="ml-1 text-success">・在庫から使用</span>}
+                  {product && c.ml > product.size && (
+                    <span className="ml-1 font-medium text-fg">
+                      ・{product.size} mL 瓶が {Math.ceil(c.ml / product.size)} 本必要
+                    </span>
+                  )}
                 </p>
                 {oil && (
                   <details className="text-sm">

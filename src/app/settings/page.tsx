@@ -17,7 +17,7 @@ const SAFETY_LABEL: Record<keyof SafetyProfile, string> = {
 };
 
 export default function SettingsPage() {
-  const { safety, saveSafety, user, repo, migrateLocalToCloud } = useAppData();
+  const { safety, saveSafety, user, repo, ready, migrateLocalToCloud } = useAppData();
   const [pushState, setPushState] = useState<string | null>(null);
   const [migrated, setMigrated] = useState<string | null>(null);
 
@@ -30,7 +30,7 @@ export default function SettingsPage() {
         <p className="text-sm text-muted">当てはまるものを選ぶと、注意が必要な精油を調合から除外します。</p>
         {(Object.keys(SAFETY_LABEL) as (keyof SafetyProfile)[]).map((k) => (
           <label key={k} className="flex items-center gap-3 text-sm">
-            <input type="checkbox" className="h-5 w-5" checked={safety[k]} onChange={(e) => saveSafety({ ...safety, [k]: e.target.checked })} />
+            <input type="checkbox" className="h-5 w-5" disabled={!ready} checked={safety[k]} onChange={(e) => saveSafety({ ...safety, [k]: e.target.checked })} />
             {SAFETY_LABEL[k]}
           </label>
         ))}

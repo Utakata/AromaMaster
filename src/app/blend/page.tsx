@@ -32,7 +32,7 @@ const OBS_EXAMPLES = [
 
 export default function BlendPage() {
   const router = useRouter();
-  const { inventory, safety, saveRecipe, saveInventory, recordMade } = useAppData();
+  const { inventory, safety, ready, saveRecipe, saveInventory, recordMade } = useAppData();
   const [step, setStep] = useState(0);
   const [observation, setObservation] = useState("");
   const [feelings, setFeelings] = useState<string[]>([]);
@@ -267,10 +267,10 @@ export default function BlendPage() {
           <BlendTable blend={blend} onAddToInventory={addToInventory} />
           {message && <Notice tone="success">{message}</Notice>}
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => save(true)} disabled={busy}>
+            <Button onClick={() => save(true)} disabled={busy || !ready}>
               作った（在庫から差し引く）
             </Button>
-            <Button variant="secondary" onClick={() => save(false)} disabled={busy}>
+            <Button variant="secondary" onClick={() => save(false)} disabled={busy || !ready}>
               レシピに保存
             </Button>
           </div>
